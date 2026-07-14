@@ -105,8 +105,18 @@ export const PrivacyPolicy: React.FC<PrivacyPolicyProps> = ({ setActiveView }) =
               5. Customer Contact
             </h2>
             <p className="text-gray-300 text-sm leading-relaxed">
-              Customers can reach out to VPANSAK Studio at any point regarding submitted enquiry details or to withdraw their details from follow-up lists. If you have any questions or require modifications to the submitted details, contact us directly via WhatsApp.
+              Customers can reach out to VPANSAK Studio at any point regarding submitted enquiry details or to withdraw their details from follow-up lists. If you have any questions or require modifications to the submitted details, contact us directly:
             </p>
+            <div className="flex flex-col gap-2.5 text-sm text-gray-300 pt-1">
+              <a href="tel:+917380869635" className="flex items-center gap-2 hover:text-cyan-400 transition-colors w-fit focus:outline-none">
+                <span>📞 WhatsApp:</span>
+                <span className="font-semibold text-gray-200">+91 7380869635</span>
+              </a>
+              <a href="mailto:alook@outlook.in" className="flex items-center gap-2 hover:text-cyan-400 transition-colors w-fit focus:outline-none">
+                <span>✉ Email:</span>
+                <span className="font-semibold text-cyan-400 hover:underline">alook@outlook.in</span>
+              </a>
+            </div>
           </div>
 
         </div>

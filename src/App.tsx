@@ -146,6 +146,16 @@ function App() {
               <p className="text-gray-400 text-sm max-w-sm leading-relaxed">
                 Professional Website Development for Businesses, Shops, Startups and Personal Brands. We Build Websites That Build Your Business.
               </p>
+              <div className="flex flex-col gap-2 text-sm text-gray-400 pt-2">
+                <a href="tel:+917380869635" className="flex items-center gap-2 hover:text-cyan-400 transition-colors w-fit focus:outline-none">
+                  <span>📞</span>
+                  <span>+91 7380869635</span>
+                </a>
+                <a href="mailto:alook@outlook.in" className="flex items-center gap-2 hover:text-cyan-400 transition-colors w-fit focus:outline-none">
+                  <span>✉</span>
+                  <span>alook@outlook.in</span>
+                </a>
+              </div>
             </div>
 
             {/* Column 2: Quick Links */}

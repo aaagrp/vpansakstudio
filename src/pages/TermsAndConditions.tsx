@@ -109,6 +109,27 @@ export const TermsAndConditions: React.FC<TermsAndConditionsProps> = ({ setActiv
             </p>
           </div>
 
+          {/* Section 7 */}
+          <div className="glass-card rounded-2xl p-6 md:p-8 border border-white/5 space-y-4">
+            <h2 className="text-xl font-semibold text-white flex items-center gap-2.5">
+              <Info size={18} className="text-cyan-400" />
+              7. Contact Information
+            </h2>
+            <p className="text-gray-300 text-sm leading-relaxed">
+              If you have any questions about these Terms & Conditions or wish to discuss a custom project enquiry further, please reach out to us:
+            </p>
+            <div className="flex flex-col gap-2.5 text-sm text-gray-300 pt-1">
+              <a href="tel:+917380869635" className="flex items-center gap-2 hover:text-cyan-400 transition-colors w-fit focus:outline-none">
+                <span>📞 WhatsApp:</span>
+                <span className="font-semibold text-gray-200">+91 7380869635</span>
+              </a>
+              <a href="mailto:alook@outlook.in" className="flex items-center gap-2 hover:text-cyan-400 transition-colors w-fit focus:outline-none">
+                <span>✉ Email:</span>
+                <span className="font-semibold text-cyan-400 hover:underline">alook@outlook.in</span>
+              </a>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>

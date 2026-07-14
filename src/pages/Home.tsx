@@ -192,7 +192,17 @@ ${formData.additionalRequirements.trim() || 'No additional requirements'}
 Please contact me to discuss the website project.
 
 Website Request Submitted Through:
-VPANSAK </> STUDIO`;
+VPANSAK </> STUDIO
+
+━━━━━━━━━━━━━━━━━━━━━━
+
+VPANSAK </> STUDIO
+
+📞 +91 7380869635
+✉ alook@outlook.in
+
+Thank you for your website enquiry.
+We will contact you shortly.`;
 
     const encodedMsg = encodeURIComponent(msg);
     const waUrl = `https://wa.me/917380869635?text=${encodedMsg}`;
@@ -284,7 +294,7 @@ VPANSAK </> STUDIO`;
           </p>
 
           {/* Buttons */}
-          <div className="flex flex-col sm:flex-row justify-center items-center gap-4 max-w-md mx-auto mb-16">
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-4 max-w-md mx-auto mb-8">
             <button
               onClick={() => formRef.current?.scrollIntoView({ behavior: 'smooth' })}
               className="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-blue-600 via-cyan-500 to-purple-600 text-white font-semibold shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/35 btn-glow transition-all duration-300"
@@ -298,6 +308,18 @@ VPANSAK </> STUDIO`;
               className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 text-white font-semibold transition-all duration-300"
             >
               Chat on WhatsApp
+            </a>
+          </div>
+
+          {/* Hero Contact Info */}
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-6 mb-16 text-sm text-gray-400">
+            <a href="tel:+917380869635" className="flex items-center gap-2 hover:text-cyan-400 transition-colors focus:outline-none focus:ring-1 focus:ring-cyan-500 rounded px-1.5 py-0.5">
+              <span>📞</span>
+              <span className="font-semibold text-gray-300">+91 7380869635</span>
+            </a>
+            <a href="mailto:alook@outlook.in" className="flex items-center gap-2 hover:text-cyan-400 transition-colors focus:outline-none focus:ring-1 focus:ring-cyan-500 rounded px-1.5 py-0.5">
+              <span>✉</span>
+              <span className="font-semibold text-gray-300">alook@outlook.in</span>
             </a>
           </div>
 
@@ -1007,6 +1029,14 @@ VPANSAK </> STUDIO`;
                 {errors.agreed && <p className="text-red-500 text-xs">{errors.agreed}</p>}
               </div>
 
+              {/* Help Note */}
+              <div className="text-center text-sm text-gray-400 pt-2">
+                Need help? Contact us on{' '}
+                <a href="tel:+917380869635" className="text-cyan-400 hover:underline font-semibold">WhatsApp (+91 7380869635)</a>
+                {' '}or email us at{' '}
+                <a href="mailto:alook@outlook.in" className="text-cyan-400 hover:underline font-semibold">alook@outlook.in</a>.
+              </div>
+
               {/* Submit Button */}
               <div className="pt-2">
                 <button
@@ -1201,11 +1231,25 @@ VPANSAK </> STUDIO`;
               Website requests can be submitted anytime. Our team will contact you after reviewing your requirements.
             </p>
 
-            <div className="inline-flex flex-col items-center justify-center p-6 rounded-2xl bg-white/3 border border-white/5 mb-8">
-              <span className="text-xs font-semibold text-gray-400 uppercase tracking-widest block mb-2">Direct Support</span>
-              <span className="text-2xl md:text-3xl font-extrabold text-cyan-400 tracking-tight select-all">
-                +91 7380869635
-              </span>
+            <div className="grid sm:grid-cols-2 gap-4 max-w-lg mx-auto mb-8 text-center">
+              <a 
+                href="tel:+917380869635"
+                className="flex flex-col items-center justify-center p-5 rounded-2xl bg-white/3 border border-white/5 hover:border-cyan-500/30 hover:bg-cyan-500/5 transition-all duration-300"
+              >
+                <span className="text-xs font-semibold text-gray-400 uppercase tracking-widest block mb-1">WhatsApp / Phone</span>
+                <span className="text-lg md:text-xl font-bold text-cyan-400 tracking-tight">
+                  +91 7380869635
+                </span>
+              </a>
+              <a 
+                href="mailto:alook@outlook.in"
+                className="flex flex-col items-center justify-center p-5 rounded-2xl bg-white/3 border border-white/5 hover:border-cyan-500/30 hover:bg-cyan-500/5 transition-all duration-300"
+              >
+                <span className="text-xs font-semibold text-gray-400 uppercase tracking-widest block mb-1">Official Email</span>
+                <span className="text-lg md:text-xl font-bold text-cyan-400 tracking-tight break-all">
+                  alook@outlook.in
+                </span>
+              </a>
             </div>
 
             <div>

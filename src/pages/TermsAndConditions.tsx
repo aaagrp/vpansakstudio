@@ -2,7 +2,7 @@ import React from 'react';
 import { FileText, ArrowLeft, Info, HelpCircle, AlertTriangle, Scale, CheckSquare } from 'lucide-react';
 
 interface TermsAndConditionsProps {
-  setActiveView: (view: 'home' | 'privacy' | 'terms') => void;
+  setActiveView: (view: 'home' | 'services' | 'categories' | 'how-it-works' | 'request-form' | 'contact' | 'privacy' | 'terms') => void;
 }
 
 export const TermsAndConditions: React.FC<TermsAndConditionsProps> = ({ setActiveView }) => {

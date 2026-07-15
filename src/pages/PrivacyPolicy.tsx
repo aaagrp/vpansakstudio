@@ -2,7 +2,7 @@ import React from 'react';
 import { Shield, ArrowLeft, Info, Mail, Phone, Lock } from 'lucide-react';
 
 interface PrivacyPolicyProps {
-  setActiveView: (view: 'home' | 'privacy' | 'terms') => void;
+  setActiveView: (view: 'home' | 'services' | 'categories' | 'how-it-works' | 'request-form' | 'contact' | 'privacy' | 'terms') => void;
 }
 
 export const PrivacyPolicy: React.FC<PrivacyPolicyProps> = ({ setActiveView }) => {

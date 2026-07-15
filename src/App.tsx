@@ -1,52 +1,60 @@
 import { useState } from 'react';
 import { Menu, X, MessageSquare, ArrowUp } from 'lucide-react';
 import { Home } from './pages/Home';
+import { Services } from './pages/Services';
+import { Categories } from './pages/Categories';
+import { HowItWorks } from './pages/HowItWorks';
+import { RequestForm } from './pages/RequestForm';
+import { Contact } from './pages/Contact';
 import { PrivacyPolicy } from './pages/PrivacyPolicy';
 import { TermsAndConditions } from './pages/TermsAndConditions';
 
-type ViewState = 'home' | 'privacy' | 'terms';
+type ViewState = 'home' | 'services' | 'categories' | 'how-it-works' | 'request-form' | 'contact' | 'privacy' | 'terms';
 
 function App() {
   const [activeView, setActiveView] = useState<ViewState>('home');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  // Scroll to a home section helper
-  const navigateToHomeSection = (sectionId: string) => {
-    setMobileMenuOpen(false);
-    
-    if (activeView !== 'home') {
-      setActiveView('home');
-      // Wait for page to render before scrolling
-      setTimeout(() => {
-        const element = document.getElementById(sectionId);
-        element?.scrollIntoView({ behavior: 'smooth' });
-      }, 100);
-    } else {
-      const element = document.getElementById(sectionId);
-      element?.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+  const [preselectedCategory, setPreselectedCategory] = useState<string>('');
 
   // Scroll to top helper
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  // Switch pages view and scroll to top
+  const navigateView = (view: ViewState) => {
+    setMobileMenuOpen(false);
+    setActiveView(view);
+    // Scroll immediately to top on page transition
+    window.scrollTo({ top: 0 });
+  };
+
   // Navbar Links
   const navLinks = [
-    { label: 'Home', action: () => navigateToHomeSection('home') },
-    { label: 'Services', action: () => navigateToHomeSection('services') },
-    { label: 'How It Works', action: () => navigateToHomeSection('how-it-works') },
-    { label: 'Website Types', action: () => navigateToHomeSection('categories') },
-    { label: 'Request Website', action: () => navigateToHomeSection('request-form') },
-    { label: 'Contact', action: () => navigateToHomeSection('contact') }
+    { label: 'Home', view: 'home' as const },
+    { label: 'Services', view: 'services' as const },
+    { label: 'Website Types', view: 'categories' as const },
+    { label: 'How It Works', view: 'how-it-works' as const },
+    { label: 'Request Website', view: 'request-form' as const },
+    { label: 'Contact', view: 'contact' as const }
   ];
 
-  // Helper for footer and logo clicks
-  const navigateHome = () => {
-    setActiveView('home');
-    setMobileMenuOpen(false);
-    scrollToTop();
+  // Desktop Link CSS Class
+  const getLinkClass = (view: ViewState) => {
+    const base = "text-sm font-medium transition-colors cursor-pointer focus:outline-none py-1.5 relative";
+    if (activeView === view) {
+      return `${base} text-cyan-400 after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-cyan-400 after:rounded-full`;
+    }
+    return `${base} text-gray-300 hover:text-cyan-400`;
+  };
+
+  // Mobile Link CSS Class
+  const getMobileLinkClass = (view: ViewState) => {
+    const base = "w-full text-left py-2.5 px-3 rounded-lg text-base font-medium transition-colors focus:outline-none flex items-center justify-between";
+    if (activeView === view) {
+      return `${base} bg-cyan-500/10 text-cyan-400 border-l-2 border-cyan-400`;
+    }
+    return `${base} text-gray-300 hover:text-cyan-400 hover:bg-white/5`;
   };
 
   return (
@@ -57,7 +65,7 @@ function App() {
         <div className="container mx-auto px-4 md:px-6 h-20 flex items-center justify-between">
           {/* Logo */}
           <button 
-            onClick={navigateHome}
+            onClick={() => navigateView('home')}
             className="flex items-center gap-2 text-xl md:text-2xl font-extrabold tracking-wider bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-500 bg-clip-text text-transparent cursor-pointer focus:outline-none"
           >
             VPANSAK &lt;/&gt; STUDIO
@@ -69,8 +77,8 @@ function App() {
               {navLinks.map((link, idx) => (
                 <li key={idx}>
                   <button
-                    onClick={link.action}
-                    className="text-sm font-medium text-gray-300 hover:text-cyan-400 transition-colors cursor-pointer focus:outline-none"
+                    onClick={() => navigateView(link.view)}
+                    className={getLinkClass(link.view)}
                   >
                     {link.label}
                   </button>
@@ -79,8 +87,8 @@ function App() {
             </ul>
 
             <button
-              onClick={() => navigateToHomeSection('request-form')}
-              className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 via-cyan-500 to-purple-600 text-white font-semibold text-sm shadow-md shadow-cyan-500/10 hover:shadow-cyan-500/25 btn-glow transition-all duration-300 focus:outline-none"
+              onClick={() => navigateView('request-form')}
+              className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 via-cyan-500 to-purple-600 text-white font-semibold text-sm shadow-md shadow-cyan-500/10 hover:shadow-cyan-500/25 btn-glow transition-all duration-300 focus:outline-none cursor-pointer"
             >
               Get Your Website
             </button>
@@ -99,22 +107,23 @@ function App() {
         {/* Mobile Navigation Dropdown Menu */}
         {mobileMenuOpen && (
           <div className="lg:hidden absolute top-20 left-0 right-0 glass-card border-b border-white/10 p-5 space-y-4 animate-code-float" style={{ animationIterationCount: 1, animationDuration: '0.3s' }}>
-            <ul className="space-y-3">
+            <ul className="space-y-2">
               {navLinks.map((link, idx) => (
                 <li key={idx}>
                   <button
-                    onClick={link.action}
-                    className="w-full text-left py-2 text-base font-medium text-gray-300 hover:text-cyan-400 transition-colors focus:outline-none"
+                    onClick={() => navigateView(link.view)}
+                    className={getMobileLinkClass(link.view)}
                   >
-                    {link.label}
+                    <span>{link.label}</span>
+                    {activeView === link.view && <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />}
                   </button>
                 </li>
               ))}
             </ul>
             <div className="pt-2 border-t border-white/5">
               <button
-                onClick={() => navigateToHomeSection('request-form')}
-                className="w-full text-center py-3 rounded-xl bg-gradient-to-r from-blue-600 via-cyan-500 to-purple-600 text-white font-bold text-sm shadow-lg shadow-cyan-500/15 focus:outline-none"
+                onClick={() => navigateView('request-form')}
+                className="w-full text-center py-3 rounded-xl bg-gradient-to-r from-blue-600 via-cyan-500 to-purple-600 text-white font-bold text-sm shadow-lg shadow-cyan-500/15 focus:outline-none cursor-pointer"
               >
                 Get Your Website
               </button>
@@ -125,7 +134,12 @@ function App() {
 
       {/* Main View Router */}
       <main className="flex-grow">
-        {activeView === 'home' && <Home />}
+        {activeView === 'home' && <Home setActiveView={setActiveView} />}
+        {activeView === 'services' && <Services setActiveView={setActiveView} />}
+        {activeView === 'categories' && <Categories setActiveView={setActiveView} setPreselectedCategory={setPreselectedCategory} />}
+        {activeView === 'how-it-works' && <HowItWorks setActiveView={setActiveView} />}
+        {activeView === 'request-form' && <RequestForm preselectedCategory={preselectedCategory} setPreselectedCategory={setPreselectedCategory} />}
+        {activeView === 'contact' && <Contact setActiveView={setActiveView} />}
         {activeView === 'privacy' && <PrivacyPolicy setActiveView={setActiveView} />}
         {activeView === 'terms' && <TermsAndConditions setActiveView={setActiveView} />}
       </main>
@@ -138,8 +152,8 @@ function App() {
             {/* Column 1: Info */}
             <div className="lg:col-span-2 space-y-4">
               <button
-                onClick={navigateHome}
-                className="text-2xl font-extrabold tracking-wider bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-500 bg-clip-text text-transparent focus:outline-none"
+                onClick={() => navigateView('home')}
+                className="text-2xl font-extrabold tracking-wider bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-500 bg-clip-text text-transparent cursor-pointer focus:outline-none"
               >
                 VPANSAK &lt;/&gt; STUDIO
               </button>
@@ -172,32 +186,48 @@ function App() {
               <ul className="space-y-2.5">
                 <li>
                   <button 
-                    onClick={navigateHome} 
-                    className="text-sm text-gray-400 hover:text-cyan-400 transition-colors focus:outline-none"
+                    onClick={() => navigateView('home')} 
+                    className="text-sm text-gray-400 hover:text-cyan-400 transition-colors focus:outline-none cursor-pointer"
                   >
                     Home
                   </button>
                 </li>
                 <li>
                   <button 
-                    onClick={() => navigateToHomeSection('services')} 
-                    className="text-sm text-gray-400 hover:text-cyan-400 transition-colors focus:outline-none"
+                    onClick={() => navigateView('services')} 
+                    className="text-sm text-gray-400 hover:text-cyan-400 transition-colors focus:outline-none cursor-pointer"
                   >
                     Services
                   </button>
                 </li>
                 <li>
                   <button 
-                    onClick={() => navigateToHomeSection('request-form')} 
-                    className="text-sm text-gray-400 hover:text-cyan-400 transition-colors focus:outline-none"
+                    onClick={() => navigateView('categories')} 
+                    className="text-sm text-gray-400 hover:text-cyan-400 transition-colors focus:outline-none cursor-pointer"
+                  >
+                    Website Types
+                  </button>
+                </li>
+                <li>
+                  <button 
+                    onClick={() => navigateView('how-it-works')} 
+                    className="text-sm text-gray-400 hover:text-cyan-400 transition-colors focus:outline-none cursor-pointer"
+                  >
+                    How It Works
+                  </button>
+                </li>
+                <li>
+                  <button 
+                    onClick={() => navigateView('request-form')} 
+                    className="text-sm text-gray-400 hover:text-cyan-400 transition-colors focus:outline-none cursor-pointer"
                   >
                     Request Website
                   </button>
                 </li>
                 <li>
                   <button 
-                    onClick={() => navigateToHomeSection('contact')} 
-                    className="text-sm text-gray-400 hover:text-cyan-400 transition-colors focus:outline-none"
+                    onClick={() => navigateView('contact')} 
+                    className="text-sm text-gray-400 hover:text-cyan-400 transition-colors focus:outline-none cursor-pointer"
                   >
                     Contact
                   </button>
@@ -211,22 +241,16 @@ function App() {
               <ul className="space-y-2.5">
                 <li>
                   <button
-                    onClick={() => {
-                      setActiveView('privacy');
-                      scrollToTop();
-                    }}
-                    className="text-sm text-gray-400 hover:text-cyan-400 transition-colors focus:outline-none"
+                    onClick={() => navigateView('privacy')}
+                    className="text-sm text-gray-400 hover:text-cyan-400 transition-colors focus:outline-none cursor-pointer"
                   >
                     Privacy Policy
                   </button>
                 </li>
                 <li>
                   <button
-                    onClick={() => {
-                      setActiveView('terms');
-                      scrollToTop();
-                    }}
-                    className="text-sm text-gray-400 hover:text-cyan-400 transition-colors focus:outline-none"
+                    onClick={() => navigateView('terms')}
+                    className="text-sm text-gray-400 hover:text-cyan-400 transition-colors focus:outline-none cursor-pointer"
                   >
                     Terms and Conditions
                   </button>

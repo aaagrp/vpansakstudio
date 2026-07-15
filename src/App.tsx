@@ -147,12 +147,20 @@ function App() {
                 Professional Website Development for Businesses, Shops, Startups and Personal Brands. We Build Websites That Build Your Business.
               </p>
               <div className="flex flex-col gap-2 text-sm text-gray-400 pt-2">
+                <a href="tel:+918738869635" className="flex items-center gap-2 hover:text-cyan-400 transition-colors w-fit focus:outline-none">
+                  <span>📞 Call:</span>
+                  <span>+91 8738869635</span>
+                </a>
                 <a href="tel:+917380869635" className="flex items-center gap-2 hover:text-cyan-400 transition-colors w-fit focus:outline-none">
-                  <span>📞</span>
+                  <span>📞 Call:</span>
                   <span>+91 7380869635</span>
                 </a>
+                <a href="https://wa.me/66942033973" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-cyan-400 transition-colors w-fit focus:outline-none">
+                  <span>💬 WhatsApp:</span>
+                  <span>+66 94 203 3973</span>
+                </a>
                 <a href="mailto:alook@outlook.in" className="flex items-center gap-2 hover:text-cyan-400 transition-colors w-fit focus:outline-none">
-                  <span>✉</span>
+                  <span>✉ Email:</span>
                   <span>alook@outlook.in</span>
                 </a>
               </div>
@@ -252,7 +260,7 @@ function App() {
 
         {/* WhatsApp Fixed Button */}
         <a
-          href="https://wa.me/917380869635?text=Hello%20VPANSAK%20Studio%2C%20I%20want%20a%20website%20for%20my%20business."
+          href="https://wa.me/66942033973?text=Hello%20VPANSAK%20Studio%2C%20I%20want%20a%20website%20for%20my%20business."
           target="_blank"
           rel="noopener noreferrer"
           className="p-4 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white shadow-xl shadow-emerald-600/30 transition-all duration-300 hover:scale-110 flex items-center justify-center animate-bounce-slow"

@@ -198,14 +198,15 @@ VPANSAK </> STUDIO
 
 VPANSAK </> STUDIO
 
-📞 +91 7380869635
+📞 +91 8738869635 / +91 7380869635
+💬 +66 94 203 3973
 ✉ alook@outlook.in
 
 Thank you for your website enquiry.
 We will contact you shortly.`;
 
     const encodedMsg = encodeURIComponent(msg);
-    const waUrl = `https://wa.me/917380869635?text=${encodedMsg}`;
+    const waUrl = `https://wa.me/66942033973?text=${encodedMsg}`;
     window.open(waUrl, '_blank');
   };
 
@@ -302,7 +303,7 @@ We will contact you shortly.`;
               Request Your Website
             </button>
             <a
-              href="https://wa.me/917380869635?text=Hello%20VPANSAK%20Studio%2C%20I%20want%20a%20website%20for%20my%20business."
+              href="https://wa.me/66942033973?text=Hello%20VPANSAK%20Studio%2C%20I%20want%20a%20website%20for%20my%20business."
               target="_blank"
               rel="noopener noreferrer"
               className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 text-white font-semibold transition-all duration-300"
@@ -312,13 +313,23 @@ We will contact you shortly.`;
           </div>
 
           {/* Hero Contact Info */}
-          <div className="flex flex-col sm:flex-row justify-center items-center gap-6 mb-16 text-sm text-gray-400">
-            <a href="tel:+917380869635" className="flex items-center gap-2 hover:text-cyan-400 transition-colors focus:outline-none focus:ring-1 focus:ring-cyan-500 rounded px-1.5 py-0.5">
-              <span>📞</span>
-              <span className="font-semibold text-gray-300">+91 7380869635</span>
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-x-8 gap-y-3 mb-16 text-sm text-gray-400">
+            <div className="flex flex-col sm:flex-row items-center gap-x-6 gap-y-2">
+              <a href="tel:+918738869635" className="flex items-center gap-2 hover:text-cyan-400 transition-colors focus:outline-none focus:ring-1 focus:ring-cyan-500 rounded px-1.5 py-0.5">
+                <span>📞 Call:</span>
+                <span className="font-semibold text-gray-300">+91 8738869635</span>
+              </a>
+              <a href="tel:+917380869635" className="flex items-center gap-2 hover:text-cyan-400 transition-colors focus:outline-none focus:ring-1 focus:ring-cyan-500 rounded px-1.5 py-0.5">
+                <span>📞 Call:</span>
+                <span className="font-semibold text-gray-300">+91 7380869635</span>
+              </a>
+            </div>
+            <a href="https://wa.me/66942033973" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-cyan-400 transition-colors focus:outline-none focus:ring-1 focus:ring-cyan-500 rounded px-1.5 py-0.5">
+              <span>💬 WhatsApp:</span>
+              <span className="font-semibold text-gray-300">+66 94 203 3973</span>
             </a>
             <a href="mailto:alook@outlook.in" className="flex items-center gap-2 hover:text-cyan-400 transition-colors focus:outline-none focus:ring-1 focus:ring-cyan-500 rounded px-1.5 py-0.5">
-              <span>✉</span>
+              <span>✉ Email:</span>
               <span className="font-semibold text-gray-300">alook@outlook.in</span>
             </a>
           </div>
@@ -1032,7 +1043,7 @@ We will contact you shortly.`;
               {/* Help Note */}
               <div className="text-center text-sm text-gray-400 pt-2">
                 Need help? Contact us on{' '}
-                <a href="tel:+917380869635" className="text-cyan-400 hover:underline font-semibold">WhatsApp (+91 7380869635)</a>
+                <a href="https://wa.me/66942033973" target="_blank" rel="noopener noreferrer" className="text-cyan-400 hover:underline font-semibold">WhatsApp (+66 94 203 3973)</a>
                 {' '}or email us at{' '}
                 <a href="mailto:alook@outlook.in" className="text-cyan-400 hover:underline font-semibold">alook@outlook.in</a>.
               </div>
@@ -1231,22 +1242,35 @@ We will contact you shortly.`;
               Website requests can be submitted anytime. Our team will contact you after reviewing your requirements.
             </p>
 
-            <div className="grid sm:grid-cols-2 gap-4 max-w-lg mx-auto mb-8 text-center">
+            <div className="grid sm:grid-cols-3 gap-4 max-w-2xl mx-auto mb-8 text-center">
+              <div 
+                className="flex flex-col items-center justify-center p-5 rounded-2xl bg-white/3 border border-white/5"
+              >
+                <span className="text-xs font-semibold text-gray-400 uppercase tracking-widest block mb-2">Phone Calls</span>
+                <a href="tel:+918738869635" className="text-base font-bold text-cyan-400 tracking-tight hover:underline mb-1">
+                  +91 8738869635
+                </a>
+                <a href="tel:+917380869635" className="text-base font-bold text-cyan-400 tracking-tight hover:underline">
+                  +91 7380869635
+                </a>
+              </div>
               <a 
-                href="tel:+917380869635"
+                href="https://wa.me/66942033973"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex flex-col items-center justify-center p-5 rounded-2xl bg-white/3 border border-white/5 hover:border-cyan-500/30 hover:bg-cyan-500/5 transition-all duration-300"
               >
-                <span className="text-xs font-semibold text-gray-400 uppercase tracking-widest block mb-1">WhatsApp / Phone</span>
-                <span className="text-lg md:text-xl font-bold text-cyan-400 tracking-tight">
-                  +91 7380869635
+                <span className="text-xs font-semibold text-gray-400 uppercase tracking-widest block mb-2">WhatsApp</span>
+                <span className="text-base font-bold text-cyan-400 tracking-tight">
+                  +66 94 203 3973
                 </span>
               </a>
               <a 
                 href="mailto:alook@outlook.in"
                 className="flex flex-col items-center justify-center p-5 rounded-2xl bg-white/3 border border-white/5 hover:border-cyan-500/30 hover:bg-cyan-500/5 transition-all duration-300"
               >
-                <span className="text-xs font-semibold text-gray-400 uppercase tracking-widest block mb-1">Official Email</span>
-                <span className="text-lg md:text-xl font-bold text-cyan-400 tracking-tight break-all">
+                <span className="text-xs font-semibold text-gray-400 uppercase tracking-widest block mb-2">Official Email</span>
+                <span className="text-base font-bold text-cyan-400 tracking-tight break-all">
                   alook@outlook.in
                 </span>
               </a>
@@ -1254,7 +1278,7 @@ We will contact you shortly.`;
 
             <div>
               <a
-                href="https://wa.me/917380869635?text=Hello%20VPANSAK%20Studio%2C%20I%20want%20a%20website."
+                href="https://wa.me/66942033973?text=Hello%20VPANSAK%20Studio%2C%20I%20want%20a%20website."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2.5 px-8 py-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold shadow-lg shadow-emerald-600/20 hover:shadow-emerald-600/35 transition-all duration-300"

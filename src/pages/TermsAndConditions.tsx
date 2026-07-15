@@ -119,9 +119,19 @@ export const TermsAndConditions: React.FC<TermsAndConditionsProps> = ({ setActiv
               If you have any questions about these Terms & Conditions or wish to discuss a custom project enquiry further, please reach out to us:
             </p>
             <div className="flex flex-col gap-2.5 text-sm text-gray-300 pt-1">
-              <a href="tel:+917380869635" className="flex items-center gap-2 hover:text-cyan-400 transition-colors w-fit focus:outline-none">
-                <span>📞 WhatsApp:</span>
-                <span className="font-semibold text-gray-200">+91 7380869635</span>
+              <div className="flex flex-wrap gap-x-4 gap-y-2 items-center">
+                <span>📞 Phone Calls:</span>
+                <a href="tel:+918738869635" className="font-semibold text-gray-200 hover:text-cyan-400 transition-colors focus:outline-none">
+                  +91 8738869635
+                </a>
+                <span className="text-gray-600">|</span>
+                <a href="tel:+917380869635" className="font-semibold text-gray-200 hover:text-cyan-400 transition-colors focus:outline-none">
+                  +91 7380869635
+                </a>
+              </div>
+              <a href="https://wa.me/66942033973" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-cyan-400 transition-colors w-fit focus:outline-none">
+                <span>💬 WhatsApp:</span>
+                <span className="font-semibold text-gray-200">+66 94 203 3973</span>
               </a>
               <a href="mailto:alook@outlook.in" className="flex items-center gap-2 hover:text-cyan-400 transition-colors w-fit focus:outline-none">
                 <span>✉ Email:</span>

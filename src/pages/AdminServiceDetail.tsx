@@ -529,11 +529,16 @@ export const AdminServiceDetail: React.FC<AdminServiceDetailProps> = ({ serviceI
     if (!service) return '';
     let msg = '';
     if (type === 'register') {
-      msg = `Hello ${service.customer_name},\n\nYour website service has been registered with VPANSAK </> STUDIO.\n\nService ID: ${serviceId}\n\nProject: ${service.business_name}\nCurrent Status: ${service.project_status}\n\nYou can track your website project using the Service ID on our website:\n\n${trackingLink}\n\nPlease keep this Service ID safe.\n\nContact:\nWhatsApp: +91 7380869635\nEmail: alook@outlook.in\n\nThank you,\nVPANSAK </> STUDIO`;
+      msg = `Hello ${service.customer_name},\n\nYour website service has been registered with VPANSAK </> STUDIO.\n\nService ID: ${serviceId}\n\nProject: ${service.business_name}\nCurrent Status: ${service.project_status}\n\nYou can track your website project using the Service ID on our website:\n\n[${trackingLink}]\n\nPlease keep this Service ID safe.\n\nContact:\nWhatsApp: +91 7380869635\nEmail: alook@outlook.in\n\nThank you,\nVPANSAK </> STUDIO`;
     } else {
       msg = `Hello ${service.customer_name},\n\nYour website has been successfully launched.\n\nService ID: ${serviceId}\nWebsite URL: ${service.live_website_url}\nLaunch Date: ${service.launch_date}\n\nYour one-year free basic support is active until:\n\n${service.support_end_date}\n\nFree support includes minor text, image and contact-detail updates within the existing website structure. Major changes or new features may require a separate quotation.\n\nThank you,\nVPANSAK </> STUDIO`;
     }
-    return `https://wa.me/${service.customer_mobile}?text=${encodeURIComponent(msg)}`;
+
+    const recipient = service.customer_whatsapp || service.customer_mobile;
+    const cleanNumber = recipient.replace(/\D/g, '');
+    const formattedPhone = cleanNumber.length === 10 ? `91${cleanNumber}` : cleanNumber;
+
+    return `https://wa.me/${formattedPhone}?text=${encodeURIComponent(msg)}`;
   };
 
   // Format Helper

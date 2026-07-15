@@ -143,7 +143,9 @@ CREATE POLICY admin_all_settings ON studio_settings
 
 -- 8. RPC Functions for Secure Public Access (SECURITY DEFINER bypasses RLS)
 
--- RPC to track service publicly
+-- RPC to track service publicly (Drop first since parameters/columns change)
+DROP FUNCTION IF EXISTS get_public_service_tracking(p_service_id text);
+
 CREATE OR REPLACE FUNCTION get_public_service_tracking(p_service_id text)
 RETURNS TABLE (
   service_id TEXT,
@@ -166,7 +168,17 @@ RETURNS TABLE (
   project_price NUMERIC,
   amount_received NUMERIC,
   remaining_balance NUMERIC,
-  hide_payments_publicly BOOLEAN
+  hide_payments_publicly BOOLEAN,
+  business_location TEXT,
+  required_pages TEXT[],
+  required_features TEXT[],
+  domain_status TEXT,
+  domain_name TEXT,
+  hosting_status TEXT,
+  hosting_provider TEXT,
+  advance_required NUMERIC,
+  checklist JSONB,
+  documents JSONB
 ) SECURITY DEFINER AS $$
 BEGIN
   RETURN QUERY
@@ -200,7 +212,17 @@ BEGIN
     s.project_price,
     s.amount_received,
     s.remaining_balance,
-    COALESCE((SELECT gs.hide_payments_publicly FROM studio_settings gs LIMIT 1), false) as hide_payments_publicly
+    COALESCE((SELECT gs.hide_payments_publicly FROM studio_settings gs LIMIT 1), false) as hide_payments_publicly,
+    s.business_location,
+    s.required_pages,
+    s.required_features,
+    s.domain_status,
+    s.domain_name,
+    s.hosting_status,
+    s.hosting_provider,
+    s.advance_required,
+    s.checklist,
+    s.documents
   FROM website_services s
   WHERE s.service_id = UPPER(TRIM(p_service_id)) AND s.archived = false;
 END;
@@ -232,5 +254,26 @@ BEGIN
   FROM website_support_requests r
   WHERE r.service_id = UPPER(TRIM(p_service_id))
   ORDER BY r.created_at DESC;
+END;
+$$ LANGUAGE plpgsql;
+
+-- RPC to get public project updates (activity logs) safely
+CREATE OR REPLACE FUNCTION get_public_activity_logs(p_service_id text)
+RETURNS TABLE (
+  action TEXT,
+  previous_value TEXT,
+  new_value TEXT,
+  created_at TIMESTAMP WITH TIME ZONE
+) SECURITY DEFINER AS $$
+BEGIN
+  RETURN QUERY
+  SELECT 
+    l.action,
+    l.previous_value,
+    l.new_value,
+    l.created_at
+  FROM activity_logs l
+  WHERE l.service_id = UPPER(TRIM(p_service_id))
+  ORDER BY l.created_at DESC;
 END;
 $$ LANGUAGE plpgsql;

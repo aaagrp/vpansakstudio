@@ -369,16 +369,17 @@ function App() {
             {/* Sub-footer Copyright */}
             <div className="pt-8 border-t border-white/5 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-gray-500">
               <p>© 2026 VPANSAK &lt;/&gt; STUDIO. All Rights Reserved.</p>
-              <div className="flex items-center gap-1.5 font-medium text-xs text-gray-500">
-                <span>Powered by</span>
-                <span className="text-gray-400">VPANSAK</span>
+              <div className="flex items-center gap-1 font-medium text-xs text-gray-500">
+                <span>Powered</span>
                 <button
                   onClick={() => navigateView('admin')}
-                  className="text-gray-950/20 hover:text-cyan-500/80 transition-colors ml-1 p-1 focus:outline-none cursor-pointer"
+                  className="text-gray-500 hover:text-cyan-400 transition-colors p-0.5 focus:outline-none cursor-pointer"
                   title="Portal Login"
                 >
-                  <Lock size={9} />
+                  <Lock size={10} />
                 </button>
+                <span>by</span>
+                <span className="text-gray-400">VPANSAK</span>
               </div>
             </div>
           </div>

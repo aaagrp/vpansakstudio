@@ -117,21 +117,25 @@ ALTER TABLE studio_settings ENABLE ROW LEVEL SECURITY;
 -- Only the owner (aloksingh84959@gmail.com) can access/modify tables.
 -- The policy checks the current JWT email claim inside Supabase.
 
+DROP POLICY IF EXISTS admin_all_services ON website_services;
 CREATE POLICY admin_all_services ON website_services
   FOR ALL TO authenticated
   USING (auth.jwt() ->> 'email' = 'aloksingh84959@gmail.com')
   WITH CHECK (auth.jwt() ->> 'email' = 'aloksingh84959@gmail.com');
 
+DROP POLICY IF EXISTS admin_all_support ON website_support_requests;
 CREATE POLICY admin_all_support ON website_support_requests
   FOR ALL TO authenticated
   USING (auth.jwt() ->> 'email' = 'aloksingh84959@gmail.com')
   WITH CHECK (auth.jwt() ->> 'email' = 'aloksingh84959@gmail.com');
 
+DROP POLICY IF EXISTS admin_all_activity ON activity_logs;
 CREATE POLICY admin_all_activity ON activity_logs
   FOR ALL TO authenticated
   USING (auth.jwt() ->> 'email' = 'aloksingh84959@gmail.com')
   WITH CHECK (auth.jwt() ->> 'email' = 'aloksingh84959@gmail.com');
 
+DROP POLICY IF EXISTS admin_all_settings ON studio_settings;
 CREATE POLICY admin_all_settings ON studio_settings
   FOR ALL TO authenticated
   USING (auth.jwt() ->> 'email' = 'aloksingh84959@gmail.com')

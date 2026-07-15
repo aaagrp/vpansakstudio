@@ -428,7 +428,11 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({ onNavigateToService })
         .select('service_id')
         .eq('service_id', serviceId);
 
-      if (!error && (!data || data.length === 0)) {
+      if (error) {
+        throw new Error(`Database connection failed: ${error.message}. Did you run the SQL schema in the Supabase SQL editor?`);
+      }
+
+      if (!data || data.length === 0) {
         unique = true;
       }
     }

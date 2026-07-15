@@ -6,7 +6,7 @@ import {
 } from 'lucide-react';
 
 interface HomeProps {
-  setActiveView: (view: 'home' | 'services' | 'categories' | 'how-it-works' | 'request-form' | 'contact' | 'privacy' | 'terms') => void;
+  setActiveView: (view: 'home' | 'services' | 'categories' | 'how-it-works' | 'request-form' | 'contact' | 'privacy' | 'terms' | 'track') => void;
 }
 
 export const Home: React.FC<HomeProps> = ({ setActiveView }) => {
@@ -197,8 +197,29 @@ export const Home: React.FC<HomeProps> = ({ setActiveView }) => {
             ))}
           </div>
 
+          {/* Project Tracking CTA Card */}
+          <div className="glass-card rounded-3xl p-8 md:p-10 border border-cyan-500/20 bg-cyan-500/5 max-w-5xl mx-auto text-center mt-12 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+              <div className="text-left">
+                <span className="text-xs font-semibold text-cyan-400 uppercase tracking-widest block mb-1">Customer Tracking</span>
+                <h4 className="text-xl font-bold text-white mb-1">Track Your Website Project</h4>
+                <p className="text-gray-400 text-sm">Have an active service project? Enter your Service ID to view live progress, payments, and free support dates.</p>
+              </div>
+              <button
+                onClick={() => {
+                  window.scrollTo({ top: 0 });
+                  setActiveView('track');
+                }}
+                className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-blue-600 via-cyan-500 to-purple-600 text-white font-bold text-sm shadow-lg shadow-cyan-500/15 hover:shadow-cyan-500/30 btn-glow transition-all cursor-pointer focus:outline-none"
+              >
+                Track Service Status
+              </button>
+            </div>
+          </div>
+
           {/* Quick Contact CTA Footer Card */}
-          <div className="glass-card rounded-3xl p-8 md:p-10 border border-white/10 max-w-5xl mx-auto text-center mt-12 relative overflow-hidden">
+          <div className="glass-card rounded-3xl p-8 md:p-10 border border-white/10 max-w-5xl mx-auto text-center mt-6 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
             <div className="flex flex-col md:flex-row items-center justify-between gap-6">
               <div className="text-left">

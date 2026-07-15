@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Menu, X, MessageSquare, ArrowUp } from 'lucide-react';
+import { Menu, X, MessageSquare, ArrowUp, Lock } from 'lucide-react';
 import { Home } from './pages/Home';
 import { Services } from './pages/Services';
 import { Categories } from './pages/Categories';
@@ -369,9 +369,16 @@ function App() {
             {/* Sub-footer Copyright */}
             <div className="pt-8 border-t border-white/5 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-gray-500">
               <p>© 2026 VPANSAK &lt;/&gt; STUDIO. All Rights Reserved.</p>
-              <div className="flex items-center gap-1.5 font-medium">
+              <div className="flex items-center gap-1.5 font-medium text-xs text-gray-500">
                 <span>Powered by</span>
                 <span className="text-gray-400">VPANSAK</span>
+                <button
+                  onClick={() => navigateView('admin')}
+                  className="text-gray-950/20 hover:text-cyan-500/80 transition-colors ml-1 p-1 focus:outline-none cursor-pointer"
+                  title="Portal Login"
+                >
+                  <Lock size={9} />
+                </button>
               </div>
             </div>
           </div>

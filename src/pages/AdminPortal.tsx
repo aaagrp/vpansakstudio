@@ -689,6 +689,44 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({ onNavigateToService })
     document.body.removeChild(link);
   };
 
+  // Handle click on Dashboard live statistics cards
+  const handleStatCardClick = (title: string) => {
+    // Reset all filters to default
+    setFilterProjectStatus('All');
+    setFilterLaunchStatus('All');
+    setFilterSupportStatus('All');
+    setFilterPaymentStatus('All');
+    setFilterCategory('All');
+    setFilterCity('');
+    setSearchQuery('');
+
+    if (title === 'Total Customers' || title === 'Total Service Requests') {
+      // Show all
+    } else if (title === 'New Requests') {
+      setFilterProjectStatus('New Request');
+    } else if (title === 'In Discussion') {
+      setFilterProjectStatus('In Discussion');
+    } else if (title === 'Dev in Progress') {
+      setFilterProjectStatus('Development in Progress');
+    } else if (title === 'Waiting for Customer') {
+      setFilterProjectStatus('Waiting for Customer');
+    } else if (title === 'Ready for Launch') {
+      setFilterProjectStatus('Ready for Launch');
+    } else if (title === 'Launched Websites') {
+      setFilterLaunchStatus('Launched');
+    } else if (title === 'Active Free Support') {
+      setFilterSupportStatus('Active');
+    } else if (title === 'Expired Support') {
+      setFilterSupportStatus('Expired');
+    } else if (title === 'Pending Payments') {
+      setFilterPaymentStatus('PendingPaymentFilter');
+    } else if (title === 'Received Payments') {
+      setFilterPaymentStatus('ReceivedPaymentFilter');
+    }
+
+    setActiveTab('all-services');
+  };
+
   // Filter and Search logic for services list
   const getFilteredServices = () => {
     let list = [...servicesList];
@@ -709,12 +747,22 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({ onNavigateToService })
 
     // Status filter
     if (filterProjectStatus !== 'All') {
-      list = list.filter(s => s.project_status === filterProjectStatus);
+      if (filterProjectStatus === 'Waiting for Customer') {
+        list = list.filter(s => ['Waiting for Advance Payment', 'Content Pending', 'Customer Review', 'Changes Requested'].includes(s.project_status));
+      } else {
+        list = list.filter(s => s.project_status === filterProjectStatus);
+      }
     }
 
     // Payment status filter
     if (filterPaymentStatus !== 'All') {
-      list = list.filter(s => s.payment_status === filterPaymentStatus);
+      if (filterPaymentStatus === 'PendingPaymentFilter') {
+        list = list.filter(s => s.remaining_balance > 0);
+      } else if (filterPaymentStatus === 'ReceivedPaymentFilter') {
+        list = list.filter(s => s.payment_status === 'Fully Paid' || s.amount_received > 0 && s.remaining_balance === 0);
+      } else {
+        list = list.filter(s => s.payment_status === filterPaymentStatus);
+      }
     }
 
     // Category filter
@@ -946,6 +994,22 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({ onNavigateToService })
             <button
               onClick={() => {
                 setActiveTab('all-services');
+                setFilterProjectStatus('New Request');
+                setFilterLaunchStatus('All');
+                setFilterSupportStatus('All');
+                setFilterPaymentStatus('All');
+              }}
+              className={`w-full flex items-center gap-3 px-4 py-2 rounded-lg text-xs font-medium transition-colors cursor-pointer ${
+                activeTab === 'all-services' && filterProjectStatus === 'New Request' ? 'bg-cyan-500/5 text-cyan-400' : 'text-gray-400 hover:text-white hover:bg-white/5'
+              }`}
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+              <span>New Requests</span>
+            </button>
+
+            <button
+              onClick={() => {
+                setActiveTab('all-services');
                 setFilterProjectStatus('All');
                 setFilterLaunchStatus('All');
                 setFilterSupportStatus('Active');
@@ -1093,7 +1157,11 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({ onNavigateToService })
                 { title: 'Pending Payments', val: stats.pendingPayments, icon: AlertCircle, color: 'text-amber-400 bg-amber-500/10' },
                 { title: 'Received Payments', val: stats.receivedPayments, icon: DollarSign, color: 'text-emerald-400 bg-emerald-500/10' }
               ].map((card, idx) => (
-                <div key={idx} className="glass-card rounded-2xl border border-white/5 p-5 space-y-4 hover:border-cyan-500/15 transition-all">
+                <button 
+                  key={idx} 
+                  onClick={() => handleStatCardClick(card.title)}
+                  className="glass-card text-left w-full rounded-2xl border border-white/5 p-5 space-y-4 hover:border-cyan-500/30 hover:shadow-lg hover:shadow-cyan-500/5 transition-all cursor-pointer hover:scale-[1.02] active:scale-[0.98] focus:outline-none"
+                >
                   <div className="flex items-center justify-between">
                     <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">{card.title}</span>
                     <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${card.color}`}>
@@ -1101,7 +1169,7 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({ onNavigateToService })
                     </div>
                   </div>
                   <div className="text-2xl font-black text-white font-mono">{card.val}</div>
-                </div>
+                </button>
               ))}
             </div>
 

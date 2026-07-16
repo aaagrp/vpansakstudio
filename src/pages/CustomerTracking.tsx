@@ -470,7 +470,7 @@ export const CustomerTracking: React.FC = () => {
   const publicDocs = service?.documents ? service.documents.filter(doc => doc.is_public) : [];
 
   return (
-    <div className={`relative min-h-screen transition-colors duration-300 ${
+    <div className={`relative min-h-screen overflow-x-hidden transition-colors duration-300 ${
       isDarkMode ? 'bg-gray-950 text-gray-100' : 'bg-slate-50 text-slate-800'
     } pt-28 pb-16 px-4 md:px-6`}>
       
@@ -641,7 +641,7 @@ export const CustomerTracking: React.FC = () => {
               <div className="relative overflow-hidden rounded-2xl p-4 sm:p-6 bg-gradient-to-r from-emerald-600 via-teal-500 to-cyan-500 text-white shadow-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div className="space-y-1">
                   <span className="text-[10px] uppercase font-bold tracking-widest bg-white/20 px-2 py-0.5 rounded">Website Live</span>
-                  <h2 className="text-2xl font-black font-mono">{service.business_name}</h2>
+                  <h2 className="text-2xl font-black font-mono break-words">{service.business_name}</h2>
                   <p className="text-xs text-emerald-100 font-light">
                     Launch Date: {formatDate(service.launch_date)} | Free Support Period is Active.
                   </p>
@@ -694,7 +694,7 @@ export const CustomerTracking: React.FC = () => {
             <div className="grid md:grid-cols-3 gap-6">
               
               {/* Left Details Panel */}
-              <div className="md:col-span-2 space-y-6">
+              <div className="md:col-span-2 space-y-6 min-w-0">
                 
                 {/* Project Summary Card */}
                 <div className={`${cardClass} p-4 sm:p-6 rounded-2xl space-y-6`}>
@@ -718,7 +718,7 @@ export const CustomerTracking: React.FC = () => {
                     </div>
                     <div className="space-y-1">
                       <span className={labelClass}>Business Name</span>
-                      <span className={`font-semibold block ${valClass}`}>{service.business_name}</span>
+                      <span className={`font-semibold block break-words ${valClass}`}>{service.business_name}</span>
                     </div>
                     <div className="space-y-1">
                       <span className={labelClass}>Website Category</span>
@@ -730,11 +730,11 @@ export const CustomerTracking: React.FC = () => {
                     </div>
                     <div className="space-y-1">
                       <span className={labelClass}>Masked Email</span>
-                      <span className={`font-mono block ${valClass}`}>{service.masked_email || 'N/A'}</span>
+                      <span className={`font-mono block break-all ${valClass}`}>{service.masked_email || 'N/A'}</span>
                     </div>
                     <div className="space-y-1">
                       <span className={labelClass}>Masked Mobile</span>
-                      <span className={`font-mono block ${valClass}`}>{service.masked_mobile}</span>
+                      <span className={`font-mono block break-all ${valClass}`}>{service.masked_mobile}</span>
                     </div>
                     <div className="space-y-1">
                       <span className={labelClass}>Assigned Company</span>
@@ -866,7 +866,7 @@ export const CustomerTracking: React.FC = () => {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs md:text-sm">
                     <div className="space-y-1">
                       <span className={labelClass}>Business Name</span>
-                      <span className={`font-semibold block ${valClass}`}>{service.business_name}</span>
+                      <span className={`font-semibold block break-words ${valClass}`}>{service.business_name}</span>
                     </div>
                     <div className="space-y-1">
                       <span className={labelClass}>Business Category</span>
@@ -874,7 +874,7 @@ export const CustomerTracking: React.FC = () => {
                     </div>
                     <div className="space-y-1">
                       <span className={labelClass}>Business Location</span>
-                      <span className={`font-semibold block ${valClass}`}>{service.business_location || 'Kaudiram, Gorakhpur'}</span>
+                      <span className={`font-semibold block break-words ${valClass}`}>{service.business_location || 'Kaudiram, Gorakhpur'}</span>
                     </div>
                     <div className="space-y-1">
                       <span className={labelClass}>Service Area</span>
@@ -995,7 +995,7 @@ export const CustomerTracking: React.FC = () => {
               </div>
 
               {/* Right Side Info Cards (Estimated delivery, payment, assets, etc.) */}
-              <div className="space-y-6">
+              <div className="space-y-6 min-w-0">
                 
                 {/* Estimated Delivery */}
                 <div className={`${cardClass} p-4 sm:p-6 rounded-2xl space-y-4`}>

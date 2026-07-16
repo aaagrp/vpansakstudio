@@ -531,7 +531,7 @@ export const CustomerTracking: React.FC = () => {
         </div>
 
         {/* Project Search Box */}
-        <div className={`${cardClass} p-6 max-w-2xl mx-auto rounded-2xl`}>
+        <div className={`${cardClass} p-4 sm:p-6 max-w-2xl mx-auto rounded-2xl`}>
           <h3 className={`text-sm font-bold tracking-wider font-mono mb-4 uppercase ${labelClass}`}>
             Find Your Project
           </h3>
@@ -601,7 +601,7 @@ export const CustomerTracking: React.FC = () => {
 
         {/* Not Found Error Card */}
         {searched && !loading && errorMsg && (
-          <div className={`${cardClass} p-8 max-w-xl mx-auto text-center space-y-6 rounded-2xl`}>
+          <div className={`${cardClass} p-5 sm:p-8 max-w-xl mx-auto text-center space-y-6 rounded-2xl`}>
             <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mx-auto border ${
               isDarkMode ? 'bg-red-500/10 border-red-500/20 text-red-400' : 'bg-red-50 border-red-200 text-red-600'
             }`}>
@@ -638,7 +638,7 @@ export const CustomerTracking: React.FC = () => {
             
             {/* Live Status Widget (If launched) */}
             {service.launch_status === 'Launched' && service.live_website_url && (
-              <div className="relative overflow-hidden rounded-2xl p-6 bg-gradient-to-r from-emerald-600 via-teal-500 to-cyan-500 text-white shadow-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+              <div className="relative overflow-hidden rounded-2xl p-4 sm:p-6 bg-gradient-to-r from-emerald-600 via-teal-500 to-cyan-500 text-white shadow-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div className="space-y-1">
                   <span className="text-[10px] uppercase font-bold tracking-widest bg-white/20 px-2 py-0.5 rounded">Website Live</span>
                   <h2 className="text-2xl font-black font-mono">{service.business_name}</h2>
@@ -659,11 +659,11 @@ export const CustomerTracking: React.FC = () => {
             )}
 
             {/* Design Stage Horizontal Nodes */}
-            <div className={`${cardClass} p-6 rounded-2xl space-y-4`}>
+            <div className={`${cardClass} p-4 sm:p-6 rounded-2xl space-y-4`}>
               <h3 className={`text-sm font-bold tracking-wider font-mono uppercase ${labelClass}`}>
                 Current Design & Dev Stage
               </h3>
-              <div className="grid grid-cols-2 sm:grid-cols-7 gap-2">
+              <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-2">
                 {['Planning', 'Requirement', 'Wireframe', 'UI Design', 'Development', 'Testing', 'Live'].map((stage, idx) => {
                   const stageState = getDesignStageActive(stage, service.project_status);
                   const isActive = stageState === 'active';
@@ -672,7 +672,7 @@ export const CustomerTracking: React.FC = () => {
                   return (
                     <div 
                       key={stage} 
-                      className={`p-3 rounded-xl border text-center transition-all ${
+                      className={`p-2 md:p-3 rounded-xl border text-center transition-all min-w-0 ${
                         isActive 
                           ? 'bg-cyan-500/10 border-cyan-500 text-cyan-400 font-bold shadow-lg shadow-cyan-500/10 scale-102' 
                           : isCompleted 
@@ -697,7 +697,7 @@ export const CustomerTracking: React.FC = () => {
               <div className="md:col-span-2 space-y-6">
                 
                 {/* Project Summary Card */}
-                <div className={`${cardClass} p-6 rounded-2xl space-y-6`}>
+                <div className={`${cardClass} p-4 sm:p-6 rounded-2xl space-y-6`}>
                   <div className={`flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-5 border-b ${dividerClass}`}>
                     <div>
                       <span className={`text-[10px] font-mono tracking-wider block font-bold ${labelClass}`}>SERVICE ID</span>
@@ -774,7 +774,7 @@ export const CustomerTracking: React.FC = () => {
                 {(() => {
                   const { percent, stage } = getProgressAndStage(service.project_status);
                   return (
-                    <div className={`${cardClass} p-6 rounded-2xl space-y-4`}>
+                    <div className={`${cardClass} p-4 sm:p-6 rounded-2xl space-y-4`}>
                       <div className="flex justify-between items-center">
                         <h3 className={`text-sm font-bold tracking-wider font-mono uppercase ${labelClass}`}>
                           Overall Progress
@@ -801,12 +801,12 @@ export const CustomerTracking: React.FC = () => {
                 })()}
 
                 {/* Milestones Timeline */}
-                <div className={`${cardClass} p-6 rounded-2xl space-y-5`}>
+                <div className={`${cardClass} p-4 sm:p-6 rounded-2xl space-y-5`}>
                   <h3 className={`text-sm font-bold tracking-wider font-mono uppercase border-b ${dividerClass} pb-3 ${labelClass}`}>
                     Project Timeline
                   </h3>
 
-                  <div className="relative pl-6 border-l border-white/10 space-y-5 ml-2.5">
+                  <div className="relative pl-6 border-l border-white/10 space-y-5 ml-2">
                     {[
                       { key: 'discussion', title: 'Requirement Discussion Completed' },
                       { key: 'analysis', title: 'Requirement Analysis Completed' },
@@ -828,9 +828,9 @@ export const CustomerTracking: React.FC = () => {
                       const isActive = stepState === 'active';
                       
                       return (
-                        <div key={step.key} className="relative flex items-center gap-3">
+                        <div key={step.key} className="relative pl-1.5 py-0.5">
                           {/* Timeline node circle */}
-                          <div className={`absolute -left-[31px] w-4.5 h-4.5 rounded-full flex items-center justify-center border transition-all ${
+                          <div className={`absolute -left-[32px] top-1.5 w-4 h-4 rounded-full flex items-center justify-center border transition-all ${
                             isDone 
                               ? 'bg-emerald-500 border-emerald-500 text-white' 
                               : isActive 
@@ -839,11 +839,11 @@ export const CustomerTracking: React.FC = () => {
                                   ? 'bg-gray-950 border-white/20' 
                                   : 'bg-white border-slate-300'
                           }`}>
-                            {isDone && <span className="text-[10px]">✓</span>}
+                            {isDone && <span className="text-[10px] font-bold">✓</span>}
                             {isActive && <span className="text-[10px] animate-pulse">●</span>}
                           </div>
 
-                          <span className={`text-xs md:text-sm font-medium ${
+                          <p className={`text-xs md:text-sm font-medium block leading-relaxed ${
                             isDone 
                               ? isDarkMode ? 'text-emerald-400' : 'text-emerald-600' 
                               : isActive 
@@ -851,7 +851,7 @@ export const CustomerTracking: React.FC = () => {
                                 : isDarkMode ? 'text-gray-600' : 'text-slate-400'
                           }`}>
                             {step.title}
-                          </span>
+                          </p>
                         </div>
                       );
                     })}
@@ -859,7 +859,7 @@ export const CustomerTracking: React.FC = () => {
                 </div>
 
                 {/* Business Information Card */}
-                <div className={`${cardClass} p-6 rounded-2xl space-y-4`}>
+                <div className={`${cardClass} p-4 sm:p-6 rounded-2xl space-y-4`}>
                   <h3 className={`text-sm font-bold tracking-wider font-mono uppercase border-b ${dividerClass} pb-3 ${labelClass}`}>
                     Business Information
                   </h3>
@@ -888,7 +888,7 @@ export const CustomerTracking: React.FC = () => {
                 </div>
 
                 {/* Included Pages Badge Section */}
-                <div className={`${cardClass} p-6 rounded-2xl space-y-4`}>
+                <div className={`${cardClass} p-4 sm:p-6 rounded-2xl space-y-4`}>
                   <h3 className={`text-sm font-bold tracking-wider font-mono uppercase border-b ${dividerClass} pb-3 ${labelClass}`}>
                     Pages Included
                   </h3>
@@ -909,7 +909,7 @@ export const CustomerTracking: React.FC = () => {
                 </div>
 
                 {/* Included Features Card Section */}
-                <div className={`${cardClass} p-6 rounded-2xl space-y-4`}>
+                <div className={`${cardClass} p-4 sm:p-6 rounded-2xl space-y-4`}>
                   <h3 className={`text-sm font-bold tracking-wider font-mono uppercase border-b ${dividerClass} pb-3 ${labelClass}`}>
                     Features Included
                   </h3>
@@ -931,7 +931,7 @@ export const CustomerTracking: React.FC = () => {
                 </div>
 
                 {/* Support Requests Tickets Table */}
-                <div className={`${cardClass} p-6 rounded-2xl space-y-4`}>
+                <div className={`${cardClass} p-4 sm:p-6 rounded-2xl space-y-4`}>
                   <h3 className={`text-sm font-bold tracking-wider font-mono uppercase border-b ${dividerClass} pb-3 ${labelClass}`}>
                     Support Ticket History
                   </h3>
@@ -983,7 +983,7 @@ export const CustomerTracking: React.FC = () => {
                 </div>
 
                 {/* Policy Notice Panel */}
-                <div className={`${cardClass} p-5 rounded-2xl text-xs space-y-3 leading-relaxed`}>
+                <div className={`${cardClass} p-4 sm:p-5 rounded-2xl text-xs space-y-3 leading-relaxed`}>
                   <span className={`font-bold block ${headingClass}`}>Support & Maintenance Policy Notice:</span>
                   <ul className={`list-disc pl-4 space-y-1.5 font-light ${isDarkMode ? 'text-gray-400' : 'text-slate-600'}`}>
                     <li>VPANSAK Studio provides one year of free basic website support from the official website launch date.</li>
@@ -998,7 +998,7 @@ export const CustomerTracking: React.FC = () => {
               <div className="space-y-6">
                 
                 {/* Estimated Delivery */}
-                <div className={`${cardClass} p-6 rounded-2xl space-y-4`}>
+                <div className={`${cardClass} p-4 sm:p-6 rounded-2xl space-y-4`}>
                   <h3 className={`text-sm font-bold tracking-wider font-mono uppercase pb-2 border-b ${dividerClass} ${labelClass}`}>
                     Estimated Delivery
                   </h3>
@@ -1026,7 +1026,7 @@ export const CustomerTracking: React.FC = () => {
                 </div>
 
                 {/* Project Assets checklist */}
-                <div className={`${cardClass} p-6 rounded-2xl space-y-4`}>
+                <div className={`${cardClass} p-4 sm:p-6 rounded-2xl space-y-4`}>
                   <h3 className={`text-sm font-bold tracking-wider font-mono uppercase pb-2 border-b ${dividerClass} ${labelClass}`}>
                     Project Assets Status
                   </h3>
@@ -1059,7 +1059,7 @@ export const CustomerTracking: React.FC = () => {
                 </div>
 
                 {/* Domain & Hosting Status */}
-                <div className={`${cardClass} p-6 rounded-2xl space-y-4`}>
+                <div className={`${cardClass} p-4 sm:p-6 rounded-2xl space-y-4`}>
                   <h3 className={`text-sm font-bold tracking-wider font-mono uppercase pb-2 border-b ${dividerClass} ${labelClass}`}>
                     Server & Domain Info
                   </h3>
@@ -1095,7 +1095,7 @@ export const CustomerTracking: React.FC = () => {
                 </div>
 
                 {/* Payment summary */}
-                <div className={`${cardClass} p-6 rounded-2xl flex flex-col justify-between`}>
+                <div className={`${cardClass} p-4 sm:p-6 rounded-2xl flex flex-col justify-between`}>
                   <div>
                     <h3 className={`text-sm font-bold tracking-wider font-mono uppercase pb-2 border-b ${dividerClass} mb-4 ${labelClass}`}>
                       Payment Summary
@@ -1144,7 +1144,7 @@ export const CustomerTracking: React.FC = () => {
                 </div>
 
                 {/* Support info card */}
-                <div className={`${cardClass} p-6 rounded-2xl space-y-4`}>
+                <div className={`${cardClass} p-4 sm:p-6 rounded-2xl space-y-4`}>
                   <h3 className={`text-sm font-bold tracking-wider font-mono uppercase pb-2 border-b ${dividerClass} ${labelClass}`}>
                     Support Information
                   </h3>
@@ -1179,7 +1179,7 @@ export const CustomerTracking: React.FC = () => {
                 </div>
 
                 {/* Downloadable Documents */}
-                <div className={`${cardClass} p-6 rounded-2xl space-y-4`}>
+                <div className={`${cardClass} p-4 sm:p-6 rounded-2xl space-y-4`}>
                   <h3 className={`text-sm font-bold tracking-wider font-mono uppercase pb-2 border-b ${dividerClass} ${labelClass}`}>
                     Shared Documents
                   </h3>
@@ -1217,33 +1217,33 @@ export const CustomerTracking: React.FC = () => {
 
             </div>
 
-            {/* Latest updates list */}
-            <div className={`${cardClass} p-6 rounded-2xl space-y-4`}>
+            {/* Latest Project Updates */}
+            <div className={`${cardClass} p-4 sm:p-6 rounded-2xl space-y-4`}>
               <h3 className={`text-sm font-bold tracking-wider font-mono uppercase border-b ${dividerClass} pb-3 ${labelClass}`}>
                 Latest Project Updates
               </h3>
 
               {activityLogs.length === 0 ? (
                 // Fallback timeline
-                <div className="relative pl-6 border-l border-white/10 space-y-4 ml-2.5 text-xs md:text-sm">
-                  <div className="relative">
-                    <div className="absolute -left-[30px] w-4 h-4 rounded-full bg-emerald-500 border border-emerald-500" />
+                <div className="relative pl-6 border-l border-white/10 space-y-4 ml-2 text-xs md:text-sm">
+                  <div className="relative pl-1.5">
+                    <div className="absolute -left-[32px] top-1 w-4 h-4 rounded-full bg-emerald-500 border border-emerald-500" />
                     <div className="space-y-0.5">
                       <span className="text-gray-500 font-mono text-[10px] block">{formatDate(service.created_at)}</span>
                       <strong className={valClass}>Project Created</strong>
                       <p className="text-gray-500 text-xs">Website project record initialized successfully.</p>
                     </div>
                   </div>
-                  <div className="relative">
-                    <div className="absolute -left-[30px] w-4 h-4 rounded-full bg-emerald-500 border border-emerald-500" />
+                  <div className="relative pl-1.5">
+                    <div className="absolute -left-[32px] top-1 w-4 h-4 rounded-full bg-emerald-500 border border-emerald-500" />
                     <div className="space-y-0.5">
                       <span className="text-gray-500 font-mono text-[10px] block">{formatDate(service.created_at)}</span>
                       <strong className={valClass}>Requirement Discussion Completed</strong>
                       <p className="text-gray-500 text-xs">Features and details of the website requirements aligned.</p>
                     </div>
                   </div>
-                  <div className="relative">
-                    <div className="absolute -left-[30px] w-4 h-4 rounded-full bg-cyan-500 border border-cyan-500" />
+                  <div className="relative pl-1.5">
+                    <div className="absolute -left-[32px] top-1 w-4 h-4 rounded-full bg-cyan-500 border border-cyan-500" />
                     <div className="space-y-0.5">
                       <span className="text-gray-500 font-mono text-[10px] block">{formatDate(service.created_at)}</span>
                       <strong className={valClass}>Planning Started</strong>
@@ -1251,8 +1251,8 @@ export const CustomerTracking: React.FC = () => {
                     </div>
                   </div>
                   {service.payment_status === 'Pending' && (
-                    <div className="relative">
-                      <div className="absolute -left-[30px] w-4 h-4 rounded-full bg-amber-500 border border-amber-500" />
+                    <div className="relative pl-1.5">
+                      <div className="absolute -left-[32px] top-1 w-4 h-4 rounded-full bg-amber-500 border border-amber-500" />
                       <div className="space-y-0.5">
                         <span className="text-gray-500 font-mono text-[10px] block">{formatDate(service.updated_at)}</span>
                         <strong className={valClass}>Waiting For Advance Payment</strong>
@@ -1262,7 +1262,7 @@ export const CustomerTracking: React.FC = () => {
                   )}
                 </div>
               ) : (
-                <div className="relative pl-6 border-l border-white/10 space-y-5 ml-2.5 text-xs md:text-sm">
+                <div className="relative pl-6 border-l border-white/10 space-y-5 ml-2 text-xs md:text-sm">
                   {activityLogs.map((log, index) => {
                     // Safe formatting of public update logs
                     let logTitle = log.action;
@@ -1286,9 +1286,9 @@ export const CustomerTracking: React.FC = () => {
                     }
                     
                     return (
-                      <div key={index} className="relative">
+                      <div key={index} className="relative pl-1.5">
                         {/* Timeline dot */}
-                        <div className={`absolute -left-[30px] w-4 h-4 rounded-full border ${
+                        <div className={`absolute -left-[32px] top-1 w-4 h-4 rounded-full border ${
                           index === 0 
                             ? 'bg-cyan-500 border-cyan-500 ring-2 ring-cyan-500/20' 
                             : 'bg-emerald-500 border-emerald-500'
@@ -1309,7 +1309,7 @@ export const CustomerTracking: React.FC = () => {
 
             {/* Customer Rating Section (Show only if launched) */}
             {service.launch_status === 'Launched' && (
-              <div className={`${cardClass} p-6 rounded-2xl space-y-4`}>
+              <div className={`${cardClass} p-4 sm:p-6 rounded-2xl space-y-4`}>
                 <h3 className={`text-sm font-bold tracking-wider font-mono uppercase pb-3 border-b ${dividerClass} ${labelClass}`}>
                   Rate Our Service
                 </h3>
@@ -1366,7 +1366,7 @@ export const CustomerTracking: React.FC = () => {
             )}
 
             {/* Quick Actions Panel */}
-            <div className={`${cardClass} p-6 rounded-2xl space-y-4`}>
+            <div className={`${cardClass} p-4 sm:p-6 rounded-2xl space-y-4`}>
               <h3 className={`text-sm font-bold tracking-wider font-mono uppercase pb-3 border-b ${dividerClass} ${labelClass}`}>
                 Contact VPANSAK Support
               </h3>

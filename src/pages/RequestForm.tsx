@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Send, Check, Globe, Smile, Layers, HelpCircle } from 'lucide-react';
+import { Send, Check, Globe, Smile, Layers, HelpCircle, Loader2 } from 'lucide-react';
 import { Modal } from '../components/Modal';
+import { supabase } from '../lib/supabase';
 
 interface RequestFormProps {
   preselectedCategory: string;
   setPreselectedCategory: (category: string) => void;
+  setActiveView: (view: 'home' | 'services' | 'categories' | 'how-it-works' | 'request-form' | 'contact' | 'privacy' | 'terms' | 'admin' | 'admin-service-detail' | 'track', searchParams?: string) => void;
 }
 
 const CATEGORY_MAP: Record<string, string> = {
@@ -31,7 +33,8 @@ const CATEGORY_MAP: Record<string, string> = {
 
 export const RequestForm: React.FC<RequestFormProps> = ({ 
   preselectedCategory, 
-  setPreselectedCategory 
+  setPreselectedCategory,
+  setActiveView
 }) => {
   // Form State
   const [formData, setFormData] = useState({
@@ -66,6 +69,7 @@ export const RequestForm: React.FC<RequestFormProps> = ({
   // Validation State
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
   // Apply preselected category on load
   useEffect(() => {
@@ -150,13 +154,79 @@ export const RequestForm: React.FC<RequestFormProps> = ({
   };
 
   // Form Confirmation -> WhatsApp Redirect
-  const handleConfirmSubmit = () => {
+  const handleConfirmSubmit = async () => {
     setIsModalOpen(false);
+    setSubmitting(true);
+
+    let generatedServiceId = '';
+
+    try {
+      const checklist = {
+        "Logo": formData.logoStatus === 'Yes, I have it',
+        "Photos": false,
+        "Food": false,
+        "Menu": false,
+        "Info": true,
+        "Content": formData.contentStatus === 'Yes, I have it'
+      };
+
+      const websiteRequirements = `
+Preferred Style: ${formData.preferredStyle}
+Preferred Colors: ${formData.preferredColours}
+Approximate Budget: ${formData.approximateBudget}
+Expected Delivery: ${formData.expectedDelivery}
+Logo Status: ${formData.logoStatus}
+Content Status: ${formData.contentStatus}
+Domain Status: ${formData.domainStatus}
+Hosting Status: ${formData.hostingStatus}
+      `.trim();
+
+      const privateAdminNote = `
+Budget: ${formData.approximateBudget}
+Expected Delivery: ${formData.expectedDelivery}
+Preferred Contact Method: ${formData.preferredContact}
+Preferred Contact Time: ${formData.contactTime}
+      `.trim();
+
+      const { data, error } = await supabase.rpc('submit_public_website_request', {
+        p_customer_name: formData.fullName.trim(),
+        p_customer_mobile: formData.mobileNumber.trim(),
+        p_customer_email: formData.email.trim() || null,
+        p_city: formData.city.trim(),
+        p_business_name: formData.businessName.trim(),
+        p_website_category: formData.websiteCategory,
+        p_business_description: formData.businessDescription.trim(),
+        p_existing_website_status: formData.hasWebsite,
+        p_existing_website_url: formData.hasWebsite !== 'No, I need a new website' ? formData.existingUrl.trim() : null,
+        p_required_pages: selectedPages,
+        p_required_features: selectedFeatures,
+        p_website_style: formData.preferredStyle,
+        p_preferred_colours: formData.preferredColours.trim() || null,
+        p_domain_status: formData.domainStatus,
+        p_hosting_status: formData.hostingStatus,
+        p_preferred_contact_method: formData.preferredContact,
+        p_website_requirements: websiteRequirements,
+        p_private_admin_note: privateAdminNote,
+        p_checklist: checklist
+      });
+
+      if (error) {
+        throw error;
+      }
+
+      if (data) {
+        generatedServiceId = data;
+      }
+    } catch (dbErr) {
+      console.error('Failed to save request to Supabase:', dbErr);
+      // Fallback is silent so WhatsApp redirect still functions even if database fails
+    }
 
     const msg = `Hello VPANSAK </> STUDIO,
 
 I want to request a website.
 
+${generatedServiceId ? `🆔 PROJECT TRACKING ID: ${generatedServiceId}\n(You can track this project directly at vps.vpansak.studio/track?serviceId=${generatedServiceId})\n` : ''}
 👤 CUSTOMER DETAILS
 
 Name: ${formData.fullName.trim()}
@@ -210,9 +280,14 @@ VPANSAK </> STUDIO
 Thank you for your website enquiry.
 We will contact you shortly.`;
 
+    setSubmitting(false);
     const encodedMsg = encodeURIComponent(msg);
     const waUrl = `https://wa.me/66942033973?text=${encodedMsg}`;
     window.open(waUrl, '_blank');
+
+    if (generatedServiceId) {
+      setActiveView('track', `serviceId=${generatedServiceId}`);
+    }
   };
 
   // Unique categories list
@@ -754,10 +829,20 @@ We will contact you shortly.`;
               <div className="pt-2">
                 <button
                   type="submit"
-                  className="w-full flex items-center justify-center gap-3 px-8 py-4 rounded-xl bg-gradient-to-r from-blue-600 via-cyan-500 to-purple-600 text-white font-bold shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40 btn-glow transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-cyan-400 cursor-pointer"
+                  disabled={submitting}
+                  className="w-full flex items-center justify-center gap-3 px-8 py-4 rounded-xl bg-gradient-to-r from-blue-600 via-cyan-500 to-purple-600 text-white font-bold shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40 btn-glow transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-cyan-400 cursor-pointer disabled:opacity-50"
                 >
-                  <Send size={18} />
-                  Send Requirements on WhatsApp
+                  {submitting ? (
+                    <>
+                      <Loader2 className="animate-spin" size={18} />
+                      <span>Creating Tracking Ticket...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Send size={18} />
+                      <span>Send Requirements on WhatsApp</span>
+                    </>
+                  )}
                 </button>
               </div>
 

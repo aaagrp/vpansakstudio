@@ -277,3 +277,140 @@ BEGIN
   ORDER BY l.created_at DESC;
 END;
 $$ LANGUAGE plpgsql;
+
+-- 9. RPC Function for Public Website Request Submission
+-- Generates a unique tracking service_id and inserts the request into website_services.
+CREATE OR REPLACE FUNCTION submit_public_website_request(
+  p_customer_name TEXT,
+  p_customer_mobile TEXT,
+  p_customer_email TEXT,
+  p_city TEXT,
+  p_business_name TEXT,
+  p_website_category TEXT,
+  p_business_description TEXT,
+  p_existing_website_status TEXT,
+  p_existing_website_url TEXT,
+  p_required_pages TEXT[],
+  p_required_features TEXT[],
+  p_website_style TEXT,
+  p_preferred_colours TEXT,
+  p_domain_status TEXT,
+  p_hosting_status TEXT,
+  p_preferred_contact_method TEXT,
+  p_website_requirements TEXT,
+  p_private_admin_note TEXT,
+  p_checklist JSONB
+) RETURNS TEXT SECURITY DEFINER AS $$
+DECLARE
+  v_service_id TEXT;
+  v_exists BOOLEAN;
+  v_rand INT;
+BEGIN
+  -- Loop until we generate a unique Service ID (VPS + 6 random digits)
+  LOOP
+    v_rand := floor(100000 + random() * 900000)::int;
+    v_service_id := 'VPS' || v_rand::text;
+    
+    SELECT EXISTS(
+      SELECT 1 FROM website_services WHERE service_id = v_service_id
+    ) INTO v_exists;
+    
+    EXIT WHEN NOT v_exists;
+  END LOOP;
+
+  -- Insert the public website request
+  INSERT INTO website_services (
+    service_id,
+    customer_name,
+    customer_mobile,
+    customer_email,
+    customer_whatsapp,
+    city,
+    state,
+    business_name,
+    website_category,
+    business_description,
+    existing_website_status,
+    existing_website_url,
+    required_pages,
+    required_features,
+    website_style,
+    preferred_colours,
+    domain_status,
+    hosting_status,
+    preferred_contact_method,
+    website_requirements,
+    private_admin_note,
+    checklist,
+    project_status,
+    public_status_note,
+    project_price,
+    advance_required,
+    amount_received,
+    remaining_balance,
+    payment_status,
+    payment_method,
+    launch_status,
+    support_status,
+    is_draft,
+    documents,
+    created_at,
+    updated_at
+  ) VALUES (
+    v_service_id,
+    p_customer_name,
+    p_customer_mobile,
+    p_customer_email,
+    p_customer_mobile, -- default whatsapp to same as mobile
+    p_city,
+    'Uttar Pradesh',   -- default state
+    p_business_name,
+    p_website_category,
+    p_business_description,
+    p_existing_website_status,
+    p_existing_website_url,
+    p_required_pages,
+    p_required_features,
+    p_website_style,
+    p_preferred_colours,
+    p_domain_status,
+    p_hosting_status,
+    p_preferred_contact_method,
+    p_website_requirements,
+    p_private_admin_note,
+    p_checklist,
+    'New Request',      -- default project status
+    'Website request submitted successfully. Awaiting admin review.',
+    0,                  -- default price
+    0,                  -- default advance
+    0,                  -- default received
+    0,                  -- default remaining
+    'Pending',          -- default payment status
+    'Not Decided',      -- default payment method
+    'Not Launched',     -- default launch status
+    'Not Started',      -- default support status
+    false,              -- is_draft: false
+    '[]'::jsonb,        -- empty docs array
+    now(),
+    now()
+  );
+
+  -- Log this initial activity
+  INSERT INTO activity_logs (
+    service_id,
+    action,
+    new_value,
+    admin_email,
+    created_at
+  ) VALUES (
+    v_service_id,
+    'Status Changed',
+    'New Request',
+    'system@vpansak.studio',
+    now()
+  );
+
+  RETURN v_service_id;
+END;
+$$ LANGUAGE plpgsql;
+

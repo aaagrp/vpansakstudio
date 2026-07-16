@@ -218,7 +218,13 @@ function App() {
         {activeView === 'services' && <Services setActiveView={navigateView} />}
         {activeView === 'categories' && <Categories setActiveView={navigateView} setPreselectedCategory={setPreselectedCategory} />}
         {activeView === 'how-it-works' && <HowItWorks setActiveView={navigateView} />}
-        {activeView === 'request-form' && <RequestForm preselectedCategory={preselectedCategory} setPreselectedCategory={setPreselectedCategory} />}
+        {activeView === 'request-form' && (
+          <RequestForm 
+            preselectedCategory={preselectedCategory} 
+            setPreselectedCategory={setPreselectedCategory} 
+            setActiveView={navigateView}
+          />
+        )}
         {activeView === 'contact' && <Contact setActiveView={navigateView} />}
         {activeView === 'privacy' && <PrivacyPolicy setActiveView={navigateView} />}
         {activeView === 'terms' && <TermsAndConditions setActiveView={navigateView} />}

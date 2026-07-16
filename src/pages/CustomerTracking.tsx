@@ -544,7 +544,7 @@ export const CustomerTracking: React.FC = () => {
                 type="text"
                 value={serviceId}
                 onChange={(e) => setServiceId(e.target.value)}
-                placeholder="Enter Service ID (e.g. VPS578562)"
+                placeholder="Enter Service ID (e.g. VPS123456)"
                 className={`w-full pl-11 pr-4 py-3.5 border transition-all rounded-xl text-base font-mono uppercase focus:outline-none focus:ring-2 ${
                   isDarkMode 
                     ? 'bg-gray-900/60 border-white/10 hover:border-cyan-500/30 focus:border-cyan-500 focus:ring-cyan-500/20 text-white placeholder-gray-500' 
@@ -571,7 +571,7 @@ export const CustomerTracking: React.FC = () => {
             </button>
           </form>
           <div className="mt-3 flex justify-between items-center text-xs">
-            <span className={labelClass}>Example Service ID: <strong className="font-mono text-cyan-500">VPS578562</strong></span>
+            <span className={labelClass}>Example Service ID: <strong className="font-mono text-cyan-500">VPS123456</strong></span>
             {searched && (
               <button 
                 type="button" 
